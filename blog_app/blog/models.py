@@ -1,6 +1,8 @@
 import os
 import uuid
 import sqlite3
+from typing import List
+
 from pydantic import BaseModel, EmailStr, Field
 
 
@@ -20,7 +22,7 @@ class Article(BaseModel):
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
-        cur.execute(f"SELECT * FROM articles WHERE id={article_id}")
+        cur.execute("SELECT * FROM articles WHERE id=?", (article_id,))
 
         record = cur.fetchone()
 
@@ -83,3 +85,6 @@ class Article(BaseModel):
             "CREATE TABLE IF NOT EXISTS articles (id TEXT, author TEXT, title TEXT, content TEXT)"
         )
         conn.close()
+
+
+# https://en.wikipedia.org/wiki/Active_record_pattern
