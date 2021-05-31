@@ -1,2 +1,10 @@
 [tool.black]
 line-length = 79
+
+[tool.pytest.ini_options]
+testpaths = [
+    "blog_app/tests",
+]
+markers = [
+    "e2e: marks tests as end-to-end (deselect with '-m \"not e2e\"')",
+]
